@@ -1,0 +1,14 @@
+Source: mysql-server
+Section: database
+Priority: optional
+Maintainer: ivanitlearning <ivan@fake-email.com>
+Version: 5.5.50
+Homepage: https://ivanitlearning.wordpress.com/
+Package: mysql-server
+Architecture: amd64
+Installed-Size: 741976
+Depends: libaio1
+Description: Test mysql-server-5.5.50
+ .
+ This package contains all the infrastructure needed to setup mysql-server
+ 5.5.50. Modified by Ivan.

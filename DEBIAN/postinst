@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ "$1" = configure ]; then
+  # Symlink to access installation dir easily
+  ln -s /usr/local/mysql-5.5.50-linux2.6-x86_64 /usr/local/mysql
+  
+  chown -R mysql /usr/local/mysql
+  chgrp -R mysql /usr/local/mysql
+  /usr/local/mysql/scripts/mysql_install_db --user=mysql
+  chown -R root /usr/local/mysql
+  chown -R mysql /usr/local/mysql/data
+  cp /usr/local/mysql/support-files/my-medium.cnf /etc/my.cnf
+  /usr/local/mysql/bin/mysqld_safe --user=mysql &
+  cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql.server
+  
+  # Set symlinks for Bash env
+  echo "Setting up /bin symlinks"
+  ln -s /usr/local/mysql/bin/mysql /bin/mysql
+  ln -s /usr/local/mysql/bin/mysqldump /bin/mysqldump
+  ln -s /usr/local/mysql/bin/mysqladmin /bin/mysqladmin
+	
+	echo "Configuring MySQL user and DB dir, and base dir..."
+	/usr/local/mysql/scripts/mysql_install_db --user=mysql --ldata=/usr/local/mysql/data --basedir=/usr/local/mysql
+	
+	echo "Configuring update-rc.d autostart and starting service..."
+	update-rc.d mysql.server defaults
+	/etc/init.d/mysql.server start
+fi

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if  [ "$1" = install ] 
+then
+  echo "Setting up mysql group and user"
+  # Now we have to ensure the following state:
+  # /etc/passwd: mysql:x:100:101:MySQL Server:/nonexistent:/bin/false
+  # /etc/group:  mysql:x:101:
+  # 
+  # Sadly there could any state be present on the system so we have to
+  # modify everything carefully i.e. not doing a chown before creating
+  # the user etc...
+  # Copied from mysql-server 5.5
+
+  # creating mysql group if he isn't already there
+  if ! getent group mysql >/dev/null; then
+    # Adding system group: mysql.
+    addgroup --system mysql >/dev/null
+  fi
+
+  # creating mysql user if he isn't already there
+  if ! getent passwd mysql >/dev/null; then
+    # Adding system user: mysql.
+    adduser \
+      --system \
+            --disabled-login \
+      --ingroup mysql \
+      --no-create-home \
+      --home /nonexistent \
+      --gecos "MySQL Server" \
+      --shell /bin/false \
+      mysql  >/dev/null
+  fi
+fi
