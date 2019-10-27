@@ -1,7 +1,6 @@
 #!/bin/bash
 
-if  [ "$1" = install ] 
-then
+if  [ "$1" = install ]; then
   echo "Setting up mysql group and user"
   # Now we have to ensure the following state:
   # /etc/passwd: mysql:x:100:101:MySQL Server:/nonexistent:/bin/false

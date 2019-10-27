@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -e "/etc/init.d/mysql" ]; then
+  echo 'Stopping mysql.server...'
+  /etc/init.d/mysql stop
+fi
+
+if pgrep mysqld >/dev/null
+then
+  echo "Stopping mysqld..."
+  killall mysqld
+fi

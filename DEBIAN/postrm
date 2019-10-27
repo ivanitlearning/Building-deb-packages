@@ -1,24 +1,22 @@
 #!/bin/bash
 
 if [ $1 = 'remove' ]; then
-  echo 'Stopping mysql.server...'
-	/etc/init.d/mysql stop
-	
-	echo 'Removing mysql user...'
-	userdel mysql -r -f
+  echo 'Removing mysql user...'
+  userdel mysql -r -f
 
-  echo 'Deleting /usr/local/mysql'
+  echo 'Deleting /usr/local/mysql...'
+  rm -rf /usr/local/mysql-5.5.50-linux2.6-x86_64
 	rm -rf /usr/local/mysql
   
-	echo 'Removing symlinks'
-	rm /bin/mysql
-	rm /bin/mysqldump
-	rm /bin/mysqladmin
-	
-	echo 'Removing cfg files and init.d servic...'
-	rm /etc/my.cnf
-	rm /etc/init.d/mysql.server
-	
-	echo 'Removing rc.d autostart...'
-	update-rc.d mysql.server remove
+  echo 'Removing symlinks...'
+  rm /bin/mysql
+  rm /bin/mysqldump
+  rm /bin/mysqladmin
+  
+  echo 'Removing cfg files and init.d service...'
+  rm /etc/my.cnf
+  rm /etc/init.d/mysql.server
+  
+  echo 'Removing rc.d autostart...'
+  update-rc.d mysql.server remove
 fi
