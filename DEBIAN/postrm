@@ -6,7 +6,7 @@ if [ $1 = 'remove' ]; then
 
   echo 'Deleting /usr/local/mysql...'
   rm -rf /usr/local/mysql-5.5.50-linux2.6-x86_64
-	rm -rf /usr/local/mysql
+  rm -rf /usr/local/mysql
   
   echo 'Removing symlinks...'
   rm /bin/mysql
